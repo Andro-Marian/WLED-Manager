@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="images/favicon.png">
+    <link rel="stylesheet" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+    <title>W-LED Manager</title>
+    <link rel="manifest" crossorigin="use-credentials" href="manifest.json"/>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="header">
+            <div id="user_menu" class="button">
+                <img alt="menu" src="images/menu.svg">
+            </div>
+            <div class="logo">
+                <img alt="logo" src="images/logo.png">
+            </div>
+            <div id="user_ledfx" class="button">
+                <img alt="add" src="images/LedFx.png">
+            </div>
+            <div id="user_refresh" class="button">
+                <img alt="refresh" src="images/refresh.svg">
+            </div>
+            <div id="user_add" class="button">
+                <img alt="add" src="images/add.svg">
+            </div>
+        </div>
+        <div class="content">
+            <div id="global_options" class="page">
+                <div class="option">
+                    <div class="row">
+                        <p class="title">Settings</p>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="left">
+                            <p class="label">Online devices first:</p>
+                        </div>
+                        <div class="right">
+                            <label class="toggle">
+                                <input name="OnlineDevicesFirst" type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="left">
+                            <p class="label">Hide offline devices:</p>
+                        </div>
+                        <div class="right">
+                            <label class="toggle">
+                                <input name="HideOffDevices" type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="left">
+                            <p class="label">Auto refresh online devices:</p>
+                        </div>
+                        <div class="right">
+                            <input type="number" name="AutoRefreshOnline" placeholder="Seconds: 0 off" min="0" max="9999" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="left">
+                            <p class="label">Auto refresh offline devices:</p>
+                        </div>
+                        <div class="right">
+                            <input type="number" name="AutoRefreshOffline" placeholder="Seconds: 0 off" min="0" max="9999" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <p class="title">LedFx</p>
+                    </div>
+                    <div class="row">
+                        <input type="text" name="LedFxIp" placeholder="Ip: 127.0.0.1" value="">
+                    </div>
+                    <div class="row">
+                        <input type="number" name="LedFxPort" placeholder="Port: 8888" min="0" max="9999" value="">
+                    </div>
+                    <div class="row">
+                        <input type="text" name="LedFxPage" placeholder="Page: #/Devices" value="">
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="left"></div>
+                        <div class="right space_bw">
+                            <button id="options_save">Save</button>
+                            <button id="options_import">Import</button>
+                            <button id="options_export">Export</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form id="device_add" class="page">
+                <div class="option">
+                    <div class="row">
+                        <p class="title">Add new device</p>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <input type="text" placeholder="IP Address" value="">
+                    </div>
+                    <div class="row">
+                        <input type="text" placeholder="Custom Name" value="">
+                    </div>
+                    <div class="row">
+                        <div class="left">
+                            <p class="label">Hide if offline:</p>
+                        </div>
+                        <div class="right">
+                            <label class="toggle">
+                                <input type="checkbox">
+                                <span class="slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="option">
+                    <div class="row">
+                        <div class="left"></div>
+                        <div class="right space_bw">
+                            <button class="save" type="submit">Add</button>
+                            <button class="delete" type="reset">Reset</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+            <div id="device_list" class="devices open"></div>
+            <form id="device_options" class="page"></form>
+        </div>
+        <div class="footer">
+            <div id="button_online" class="button">
+                <img alt="menu" src="images/menu.svg">
+                <p>Online</p>
+            </div>
+            <div id="button_offline" class="button">
+                <img alt="add" src="images/LedFx.png">
+                <p>Offline</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
