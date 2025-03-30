@@ -1,0 +1,14 @@
+{
+    "name": "WLED Manager",
+    "short_name": "WLED M",
+    "description": "Control WLED devices from the web page.",
+    "icons": [
+        {
+            "src": "images/favicon.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "start_url": "/index.html",
+    "display": "standalone"
+}
