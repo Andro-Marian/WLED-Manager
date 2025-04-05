@@ -252,6 +252,7 @@ const Device = class {
                 const event = new Event('change');
                 brightness.value = bLabel.value;
                 brightness.dispatchEvent(event);
+                bLabel.blur();
             }
         });
         if (this.i['relays']) {
