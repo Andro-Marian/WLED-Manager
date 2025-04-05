@@ -168,9 +168,7 @@ const Device = class {
                 </div>
             </div>
             <div class="row">
-                <select class="select">
-                    <option disabled selected>Preset</option>
-                </select>
+                <select class="select"></select>
             </div>
             <div class="row r2">
                 <input class="brightness" type="range" min="1" max="255" value="0">
@@ -458,7 +456,12 @@ const Device = class {
             }
             await getPresets(this.i.ip).then(async (pi) => {
                 let keys = Object.keys(pi);
-                console.log(keys);
+                presets.replaceChildren();
+                let option = document.createElement('option');
+                option.innerText = 'Preset';
+                option.disabled = true;
+                option.selected = true;
+                presets.add(option);
                 for (let i = 1; i < keys.length; i++) {
                     let option = document.createElement('option');
                     option.innerText = pi[keys[i]]['n'];
@@ -474,7 +477,6 @@ const Device = class {
                     sendRequest(this.i.ip, "json", { 'ps': target.options[index].dataset['id'] }, () => {
                         console.log("Preset send:", target.options[index].innerText);
                     });
-                    console.log(ev);
                 };
             });
             const lvl = Math.ceil(di.info.wifi.signal / 20);
