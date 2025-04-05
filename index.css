@@ -442,6 +442,18 @@ input[type='text'], input[type='number'] {
     width: 100%;
 }
 
+/* Select: */
+
+select {
+    background-color: var(--toggle_bg);
+    border: 2px solid var(--border);
+    border-radius: 6px;
+    color: var(--text);
+    font-size: 16px;
+    padding: 6px;
+    width: 100%;
+}
+
 /* Button: */
 
 button {

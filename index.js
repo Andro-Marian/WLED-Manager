@@ -1,3 +1,4 @@
+"use strict";
 const Options = {
     HideOffDevices: false,
     OnlineDevicesFirst: false,
@@ -10,6 +11,8 @@ const Options = {
     }
 };
 const Devices = [];
+// Creating the database:
+// indexedDB.deleteDatabase('Storage');
 const DB = indexedDB.open("Storage", 1);
 DB.onupgradeneeded = (ev) => {
     const i = ev.target.result;
@@ -17,6 +20,9 @@ DB.onupgradeneeded = (ev) => {
     const devices = i.createObjectStore('devices');
     devices.createIndex('ip', '', { unique: true });
     options.add(1, 2);
+    /*for (const name in Options) {
+        options.add(Options[name as keyof OptionsType], name);
+    }*/
 };
 function toBase64(file) {
     return new Promise((resolve, reject) => {
@@ -60,6 +66,25 @@ function sendRequest(ip, api, json, callback) {
     xhr.onerror = () => { callback(null); };
     xhr.send(JSON.stringify(json));
 }
+function getPresets(ip) {
+    return new Promise((resolve) => {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', `http://${ip}/presets.json`);
+        xhr.setRequestHeader('Cache-Control', 'no-cache, no-store, max-age=0');
+        xhr.timeout = 4000;
+        xhr.onload = () => {
+            if (xhr.status >= 200 && xhr.status <= 299) {
+                resolve(JSON.parse(xhr.response));
+            }
+            else {
+                resolve(null);
+            }
+        };
+        xhr.ontimeout = () => { resolve(null); };
+        xhr.onerror = () => { resolve(null); };
+        xhr.send();
+    });
+}
 function hasValue(obj) {
     if (obj === null || obj === undefined) {
         return '';
@@ -67,6 +92,13 @@ function hasValue(obj) {
     return obj;
 }
 function loadOptions(callback) {
+    /*var db = DB.result;
+    var tx = db.transaction("options").objectStore("options");
+    const a = tx.getAll();
+
+    a.onsuccess = () => {
+        console.log(a.result);
+    };*/
     const data = localStorage.getItem('options');
     if (data === null) {
         saveOptions();
@@ -135,6 +167,11 @@ const Device = class {
                     </label>
                 </div>
             </div>
+            <div class="row">
+                <select class="select">
+                    <option disabled selected>Preset</option>
+                </select>
+            </div>
             <div class="row r2">
                 <input class="brightness" type="range" min="1" max="255" value="0">
                 <input class="brightness_label" type="number" min="1" max="255" value="0">
@@ -200,6 +237,7 @@ const Device = class {
         });
         brightness.addEventListener("change", (ev) => {
             bLabel.value = ev.target.value;
+            // on: state.checked, 
             sendRequest(this.i.ip, "json/state", { bri: brightness.value }, () => {
                 console.log("Brightness send:", brightness.value);
             });
@@ -373,6 +411,7 @@ const Device = class {
         const status = this.UI.getElementsByClassName("status")[0];
         const relays = this.UI.querySelectorAll(".relay input");
         const dIcon = this.UI.getElementsByClassName("icon")[0];
+        const presets = this.UI.getElementsByClassName("select")[0];
         status.src = "images/loading.svg";
         this.UI.classList.add("loading");
         if (this.i.Icon) {
@@ -417,6 +456,27 @@ const Device = class {
                     relays[i].checked = di.state.MultiRelay.relays[i].state;
                 }
             }
+            await getPresets(this.i.ip).then(async (pi) => {
+                let keys = Object.keys(pi);
+                console.log(keys);
+                for (let i = 1; i < keys.length; i++) {
+                    let option = document.createElement('option');
+                    option.innerText = pi[keys[i]]['n'];
+                    option.dataset['id'] = i.toString();
+                    if (di.state.ps == keys[i]) {
+                        option.selected = true;
+                    }
+                    presets.add(option);
+                }
+                presets.onchange = (ev) => {
+                    let target = ev.target;
+                    let index = target.selectedIndex;
+                    sendRequest(this.i.ip, "json", { 'ps': target.options[index].dataset['id'] }, () => {
+                        console.log("Preset send:", target.options[index].innerText);
+                    });
+                    console.log(ev);
+                };
+            });
             const lvl = Math.ceil(di.info.wifi.signal / 20);
             sIcon.src = 'images/online-' + lvl + '.svg';
             sText.innerText = di.info.wifi.signal + "%";
@@ -623,6 +683,11 @@ function Initialize() {
         const page = 'http://' + Options.LedFx.Ip + ':' + Options.LedFx.Port + '/' + Options.LedFx.Page;
         window.open(page, "wled_manager-window");
     });
+    /*hod.addEventListener("click", (ev) => {
+        Options.HideOffDevices = ev.target.checked;
+asdasdasda asd asd
+        saveOptions();asdasdasd asdasdasdasdasd
+    });*/
     oImport.addEventListener("click", (ev) => {
         const input = document.createElement('input');
         const reader = new FileReader();
@@ -672,6 +737,7 @@ function Initialize() {
         });
         ev.preventDefault();
     });
+    // Initialize the list of devices:
     loadOptions(function () {
         const g = gOptions.getElementsByTagName('input');
         g.HideOffDevices.checked = this.HideOffDevices;
@@ -691,6 +757,11 @@ function Initialize() {
         elements.sort((elementA, elementB) => {
             const is1Online = elementA.classList.contains('online') ? 0 : 1;
             const is2Online = elementB.classList.contains('online') ? 0 : 1;
+            /*if (is1Online) {
+                return 1;
+            } else if (is2Online) {
+                return 2;
+            }*/
             return is1Online - is2Online;
         }).forEach(element => dList.appendChild(element));
     }
