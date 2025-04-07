@@ -389,7 +389,9 @@ const Device = class {
         });
         remove.addEventListener('click', (ev) => {
             ev.preventDefault();
-            callback(false);
+            if (confirm("Delete device: " + this.i.name)) {
+                callback(false);
+            }
         });
     }
     async refresh() {
