@@ -7,7 +7,7 @@ const Options = {
     LedFx: {
         Ip: '127.0.0.1',
         Port: '8888',
-        Page: ''
+        Page: '#/Devices'
     }
 };
 const Devices = [];
@@ -132,11 +132,11 @@ const Device = class {
                     <img class="status" src="images/loading.svg" alt="Status">
                 </div>
                 <div>
-                    <a href="http://${this.i.ip}/" target="_blank"><img class="wled" src="images/wled.svg" alt="WLED"></a>
+                    <a href="http://${this.i.ip}/" target="_blank" class="wled"><img src="images/wled.svg" alt="WLED"></a>
                 </div>
                 <p class="title">` + name + `</p>
                 <div>
-                    <a href="http://${Options.LedFx.Ip}:${Options.LedFx.Port}/#/device/${this.i.name.toLowerCase()}/" target="_blank"><img class="ledFx" src="images/ledfx.svg" alt="LedFx"></a>
+                    <a href="http://${Options.LedFx.Ip}:${Options.LedFx.Port}/#/device/${this.i.name.toLowerCase()}/" target="_blank" class="ledFx"><img src="images/ledfx.svg" alt="LedFx"></a>
                 </div>
                 <div>
                     <img class="options" src="images/options.svg" alt="Options">

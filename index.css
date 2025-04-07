@@ -276,6 +276,12 @@ body {
 
 .device .title {
     font-size: 20px;
+    padding: 0 12px;
+    width: 100%;
+}
+/*
+.device .title {
+    font-size: 20px;
     cursor: pointer;
     padding: 0 12px;
     width: 100%;
@@ -283,9 +289,15 @@ body {
 .device .title:hover {
     background: var(--hover);
     border-radius: 6px;
-}
+}*/
 .device .status {
     width: 20px;
+}
+
+.device .ledFx,
+.device .wled {
+    display: inline-block;
+    font-size: 0;
 }
 
 .device .options:hover,
