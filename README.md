@@ -18,9 +18,9 @@ If you want to make like an app:
 3. Click on Add to Home screen
 4. Open about:config and type "mixed"
 5. The security.mixed_content.block_active_content set to false
-
+```
 If you want to open the webiste normal in browser from the shortcut set the step (5.) before (3.)
-
+```
 # Images
 | PC  | Android |
 | ------------- | ------------- |
