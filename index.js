@@ -5,7 +5,7 @@ const Options = {
     AutoRefreshOnline: 0,
     AutoRefreshOffline: 0,
     LedFx: {
-        Ip: '192.168.1.144',
+        Ip: '127.0.0.1',
         Port: '8888',
         Page: ''
     }
@@ -132,11 +132,11 @@ const Device = class {
                     <img class="status" src="images/loading.svg" alt="Status">
                 </div>
                 <div>
-                    <img class="wled" src="images/wled.svg" alt="WLED">
+                    <a href="http://${this.i.ip}/" target="_blank"><img class="wled" src="images/wled.svg" alt="WLED"></a>
                 </div>
                 <p class="title">` + name + `</p>
                 <div>
-                    <img class="ledFx" src="images/ledfx.svg" alt="LedFx">
+                    <a href="http://${Options.LedFx.Ip}:${Options.LedFx.Port}/#/device/${this.i.name.toLowerCase()}/" target="_blank"><img class="ledFx" src="images/ledfx.svg" alt="LedFx"></a>
                 </div>
                 <div>
                     <img class="options" src="images/options.svg" alt="Options">
@@ -202,28 +202,24 @@ const Device = class {
         }
         const title = UI.getElementsByClassName("title")[0];
         const options = UI.getElementsByClassName("options")[0];
-        const wled = UI.getElementsByClassName("wled")[0];
-        const ledFx = UI.getElementsByClassName("ledFx")[0];
+        //const wled = UI.getElementsByClassName("wled")[0];
+        //const ledFx = UI.getElementsByClassName("ledFx")[0];
         const state = UI.getElementsByClassName("state")[0];
         const brightness = UI.getElementsByClassName("brightness")[0];
         const bLabel = UI.getElementsByClassName("brightness_label")[0];
-        wled.addEventListener("click", (e) => {
+        /*wled.addEventListener("click", (e) => {
             e.preventDefault();
-            const page = window.open("http://" + this.i.ip + "/", "wled_manager-window");
-            const timer = setInterval(() => { if (page.closed) {
-                clearInterval(timer);
-                this.refresh();
-            } }, 1000);
-        });
-        ledFx.addEventListener("click", (e) => {
+
+            const page = window.open("http://"+ this.i.ip +"/", "wled_manager-window");
+            const timer = setInterval(() => { if(page.closed) { clearInterval(timer); this.refresh(); } }, 1000);
+        });*/
+        /*ledFx.addEventListener("click", (e) => {
             e.preventDefault();
-            const fx = Options.LedFx.Ip + ':' + Options.LedFx.Port;
-            const page = window.open("http://" + fx + "/#/device/" + this.i.name.toLowerCase(), "wled_manager-window");
-            const timer = setInterval(() => { if (page.closed) {
-                clearInterval(timer);
-                this.refresh();
-            } }, 1000);
-        });
+
+            const fx = Options.LedFx.Ip +':'+ Options.LedFx.Port;
+            const page = window.open("http://"+ fx +"/#/device/"+ this.i.name.toLowerCase(), "wled_manager-window");
+            const timer = setInterval(() => { if(page.closed) { clearInterval(timer); this.refresh(); } }, 1000);
+        });*/
         options.addEventListener("click", (e) => {
             e.preventDefault();
             this.contextmenu.call(this, e);
