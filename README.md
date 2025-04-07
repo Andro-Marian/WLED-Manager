@@ -5,7 +5,7 @@ Not working all properly.
 If you want to try the site, you need to disable the HTTPS protection to allow HTTP calls.
 
 ```diff
-! Don't use big images for icons. Now it's stored all the data with
+! Don't use big images for icons. Now it's stores all the data with
 ! LocalStorage and is not supporting long strings.
 ```
 
