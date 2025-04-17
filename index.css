@@ -164,17 +164,22 @@ body {
     padding: 6px;
 }
 
-@media screen and (max-width: calc(450px*4)) {
+@media screen and (max-width: calc(400px*5)) {
+    .devices.open {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media screen and (max-width: calc(400px*4)) {
     .devices.open {
         grid-template-columns: repeat(3, 1fr);
     }
 }
-@media screen and (max-width: calc(450px*3)) {
+@media screen and (max-width: calc(400px*3)) {
     .devices.open {
         grid-template-columns: repeat(2, 1fr);
     }
 }
-@media screen and (max-width: calc(450px*2)) {
+@media screen and (max-width: calc(400px*2)) {
     .devices.open {
         grid-template-columns: 1fr;
     }

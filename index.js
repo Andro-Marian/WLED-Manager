@@ -444,7 +444,6 @@ const Device = class {
             if (this.i.name !== di.info.name) {
                 this.i.name = di.info.name;
             }
-            this.UI.classList.remove("hide");
             state.checked = di.state.on;
             brightness.value = di.state.bri;
             bLabel.value = di.state.bri;
@@ -481,13 +480,12 @@ const Device = class {
             const lvl = Math.ceil(di.info.wifi.signal / 20);
             sIcon.src = 'images/online-' + lvl + '.svg';
             sText.innerText = di.info.wifi.signal + "%";
-            this.UI.classList.remove("offline");
-            this.UI.classList.remove("live");
-            this.UI.classList.add("online");
             if (di.info.live) {
                 this.UI.classList.add("live");
             }
-            this.UI.classList.remove("loading");
+            else {
+                this.UI.classList.remove("live");
+            }
             if (Options.OnlineDevicesFirst) {
                 this.UI.style.order = ((Devices.length * -1) + this.i.id).toString();
             }
@@ -500,6 +498,10 @@ const Device = class {
                 console.log('Online timer set!');
             }
             this.isOnline = true;
+            this.UI.classList.remove("offline");
+            this.UI.classList.add("online");
+            this.UI.classList.remove("loading");
+            this.UI.classList.remove("hide");
         });
         title.innerText = (this.i.customName === '') ? this.i.name : this.i.customName;
     }
