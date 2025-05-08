@@ -284,17 +284,6 @@ body {
     padding: 0 12px;
     width: 100%;
 }
-/*
-.device .title {
-    font-size: 20px;
-    cursor: pointer;
-    padding: 0 12px;
-    width: 100%;
-}
-.device .title:hover {
-    background: var(--hover);
-    border-radius: 6px;
-}*/
 .device .status {
     width: 20px;
 }
@@ -339,6 +328,15 @@ body {
 
 .device .relay.hidden {
     display: none;
+}
+
+/* Devices - Compact */
+
+.compact .device > :not(:first-child) {
+    display: none;
+}
+.compact .device.expand > :not(:first-child) {
+    display: inherit;
 }
 
 /* Option: */

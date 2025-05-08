@@ -4,6 +4,7 @@ const Options = {
     OnlineDevicesFirst: false,
     AutoRefreshOnline: 0,
     AutoRefreshOffline: 0,
+    Theme: 0,
     LedFx: {
         Ip: '127.0.0.1',
         Port: '8888',
@@ -220,6 +221,10 @@ const Device = class {
             const page = window.open("http://"+ fx +"/#/device/"+ this.i.name.toLowerCase(), "wled_manager-window");
             const timer = setInterval(() => { if(page.closed) { clearInterval(timer); this.refresh(); } }, 1000);
         });*/
+        title.addEventListener("click", (e) => {
+            e.preventDefault();
+            UI.classList.toggle('expand');
+        });
         options.addEventListener("click", (e) => {
             e.preventDefault();
             this.contextmenu.call(this, e);
@@ -727,6 +732,7 @@ asdasdasda asd asd
     });
     gOptionsSave.addEventListener("click", (ev) => {
         const g = gOptions.getElementsByTagName('input');
+        const d = gOptions.getElementsByTagName('select');
         Options.HideOffDevices = g.HideOffDevices.checked;
         Options.OnlineDevicesFirst = g.OnlineDevicesFirst.checked;
         Options.LedFx.Ip = g.LedFxIp.value;
@@ -734,6 +740,7 @@ asdasdasda asd asd
         Options.LedFx.Page = g.LedFxPage.value;
         Options.AutoRefreshOnline = g.AutoRefreshOnline.value;
         Options.AutoRefreshOffline = g.AutoRefreshOffline.value;
+        Options.Theme = d.Theme.selectedIndex;
         saveOptions(() => {
             uMenu.click();
             uRefresh.click();
@@ -743,6 +750,7 @@ asdasdasda asd asd
     // Initialize the list of devices:
     loadOptions(function () {
         const g = gOptions.getElementsByTagName('input');
+        const d = gOptions.getElementsByTagName('select');
         g.HideOffDevices.checked = this.HideOffDevices;
         g.OnlineDevicesFirst.checked = this.OnlineDevicesFirst;
         g.LedFxIp.value = this.LedFx.Ip;
@@ -750,6 +758,8 @@ asdasdasda asd asd
         g.LedFxPage.value = this.LedFx.Page;
         g.AutoRefreshOnline.value = this.AutoRefreshOnline;
         g.AutoRefreshOffline.value = this.AutoRefreshOffline;
+        d.Theme.selectedIndex = this.Theme;
+        document.body.setAttribute('class', this.Theme ? 'compact' : 'normal');
     });
     content.scrollTop = 0;
     loadDevices(dList, dOptions, uMenu, uRefresh, function () {
