@@ -731,6 +731,7 @@ asdasdasda asd asd
         bOnline.lastElementChild.textContent = state ? 'Offline' : 'Online';
     });
     gOptionsSave.addEventListener("click", (ev) => {
+        ev.preventDefault();
         const g = gOptions.getElementsByTagName('input');
         const d = gOptions.getElementsByTagName('select');
         Options.HideOffDevices = g.HideOffDevices.checked;
@@ -745,7 +746,7 @@ asdasdasda asd asd
             uMenu.click();
             uRefresh.click();
         });
-        ev.preventDefault();
+        document.body.setAttribute('class', Options.Theme ? 'compact' : 'normal');
     });
     // Initialize the list of devices:
     loadOptions(function () {
