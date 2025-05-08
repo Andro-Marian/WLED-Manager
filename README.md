@@ -15,6 +15,8 @@ If you want to try the site, you need to disable the HTTPS protection to allow H
 3. Click on Connection secure
 4. CLick on Disable protection for now
 
+```Or download the files on the PC and open the index.html```
+
 # To work with Android (Firefox Nightly):
 
 If you want to make like an app:
